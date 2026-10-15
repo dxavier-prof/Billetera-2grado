@@ -4,141 +4,125 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Billetera & Mercadito Escolar</title>
-  
-  <!-- Tailwind CSS standalone release build (Production Ready - No CDN Warnings) -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+
+  <!-- Tailwind CSS (con soporte de configuración, colores slate y valores arbitrarios) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Fredoka & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Fredoka', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: #090d16;
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.2) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.2) 0px, transparent 50%),
-        radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.15) 0px, transparent 50%);
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #f3f7fb 0%, #f7f5fb 100%);
       background-attachment: fixed;
-      min-height: 100vh;
-      color: #f8fafc;
+      color: #1e293b;
     }
+    .font-display { font-family: 'Fredoka', cursive, sans-serif; }
 
-    .font-display {
-      font-family: 'Fredoka', cursive, sans-serif;
-    }
-    
-    /* Dinero / Billetes Diseños Finos con Sombras e Iluminación */
+    /* Billetes: fondos pastel con texto oscuro (contraste AA) */
     .bill-card {
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s ease-in-out;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
     }
     .bill-card:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.6);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 18px rgba(15, 23, 42, 0.12);
     }
-    
-    .bill-5 { background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); color: #ffffff; border: 1px solid rgba(255,255,255,0.25); }
-    .bill-10 { background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%); color: #ffffff; border: 1px solid rgba(255,255,255,0.25); }
-    .bill-20 { background: linear-gradient(135deg, #10b981 0%, #047857 100%); color: #ffffff; border: 1px solid rgba(255,255,255,0.25); }
-    .bill-50 { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; border: 1px solid rgba(255,255,255,0.25); }
-    .bill-100 { background: linear-gradient(135deg, #8b5cf6 0%, #5b21b6 100%); color: #ffffff; border: 1px solid rgba(255,255,255,0.25); }
+    .bill-5   { background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%); border: 2px solid #fda4af; color: #881337; }
+    .bill-10  { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border: 2px solid #fcd34d; color: #78350f; }
+    .bill-20  { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #6ee7b7; color: #064e3b; }
+    .bill-50  { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #7dd3fc; color: #0c4a6e; }
+    .bill-100 { background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%); border: 2px solid #d8b4fe; color: #581c87; }
 
-    /* Scrollbars */
+    input::placeholder { color: #94a3b8; }
+    button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 3px solid #7dd3fc;
+      outline-offset: 2px;
+    }
+
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #0f172a; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #475569; }
-
-    .glass-card {
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .glass-card-light {
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
+    ::-webkit-scrollbar-track { background: #eef2f7; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
   </style>
 </head>
-<body class="min-h-screen text-slate-100 flex flex-col justify-between antialiased">
-
-  <!-- Config Warning Bar (if Firebase keys are default) -->
-  <div id="firebase-warning-banner" class="hidden bg-amber-500 text-slate-950 font-bold px-4 py-2 text-center text-xs sm:text-sm flex items-center justify-center space-x-2 z-50">
-    <i class="fa-solid fa-triangle-exclamation text-base"></i>
-    <span>Atención: Falta reemplazar las claves reales de tu proyecto Firebase en la línea 270 del archivo <code>index.html</code>.</span>
-  </div>
+<body class="min-h-screen flex flex-col justify-between">
 
   <!-- Top Navigation Header -->
-  <header class="bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-30 shadow-xl">
+  <header class="bg-white/90 backdrop-blur border-b border-slate-200 sticky top-0 z-30 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center space-x-3 cursor-pointer group" onclick="if(window.app) window.app.showHome()">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 via-emerald-500 to-indigo-500 p-0.5 shadow-lg group-hover:scale-105 transition-transform">
-          <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-            <i class="fa-solid fa-vault text-amber-400 text-lg"></i>
-          </div>
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="app.showHome()">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-200 to-emerald-200 flex items-center justify-center text-emerald-800 shadow-sm">
+          <i class="fa-solid fa-vault text-xl"></i>
         </div>
         <div>
-          <h1 class="font-display text-xl font-bold bg-gradient-to-r from-amber-300 via-emerald-300 to-sky-300 bg-clip-text text-transparent leading-tight">Mi Billetera Escolar</h1>
-          <p class="text-[10px] text-slate-400 hidden sm:block font-medium">Finanzas Interactivas en el Aula</p>
+          <h1 class="font-display text-xl font-bold text-slate-800 leading-tight">Mi Billetera Escolar</h1>
+          <p class="text-xs text-slate-600 hidden sm:block">Aprende Finanzas Interactivas</p>
         </div>
       </div>
 
-      <!-- User/Role State Header -->
       <div id="header-user-badge" class="flex items-center space-x-3">
-        <span class="text-xs text-slate-500 font-medium">Cargando aplicación...</span>
+        <!-- Dynamic Content injected via JS -->
       </div>
     </div>
   </header>
 
   <!-- Main Content Container -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
-    
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
     <!-- Toast Notification Overlay -->
     <div id="toast-container" class="fixed top-20 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
 
     <!-- VIEW 1: Role Selection / Landing Screen -->
     <section id="view-landing" class="max-w-3xl mx-auto py-8">
       <div class="text-center mb-10">
-        <span class="inline-flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
-          <i class="fa-solid fa-sparkles text-xs"></i> Aprende Jugando
-        </span>
-        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white mt-3 mb-3 tracking-wide">¡Bienvenido al Juego de Finanzas!</h2>
-        <p class="text-slate-300 max-w-lg mx-auto text-sm sm:text-base">Selecciona tu rol para comenzar la jornada de aprendizaje e intercambio monetario.</p>
+        <span class="bg-emerald-100 text-emerald-900 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Aprende & Jugando</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-slate-800 mt-3 mb-2">¡Bienvenido al Juego de Finanzas!</h2>
+        <p class="text-slate-700 max-w-lg mx-auto">Selecciona tu rol para comenzar la jornada de intercambio monetario y aprendizaje financiero.</p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-6">
         <!-- Student Login Card -->
-        <div onclick="window.app && window.app.showStudentLogin()" class="glass-card p-6 rounded-3xl hover:border-emerald-500/50 shadow-xl hover:shadow-emerald-500/10 transition-all cursor-pointer group flex flex-col justify-between border">
+        <div onclick="app.showStudentLogin()" class="bg-white p-6 rounded-2xl border-2 border-emerald-100 hover:border-emerald-300 shadow-sm hover:shadow-lg transition-all cursor-pointer group flex flex-col justify-between">
           <div>
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-slate-950 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 shadow-lg shadow-emerald-500/20 transition-transform">
+            <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
               <i class="fa-solid fa-wallet"></i>
             </div>
-            <h3 class="font-display text-2xl font-bold text-white mb-1">Soy Alumno</h3>
-            <p class="text-slate-400 text-xs sm:text-sm mb-6 leading-relaxed">Ingresa con tu NIE de 8 dígitos para ver tus billetes acumulados y comprar productos.</p>
+            <h3 class="font-display text-2xl font-bold text-slate-800 mb-1">Soy Alumno</h3>
+            <p class="text-slate-600 text-sm mb-4">Ingresa con tu NIE de 8 dígitos para ver tus billetes acumulados y comprar productos.</p>
           </div>
-          <button class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold py-3.5 px-4 rounded-2xl transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center space-x-2">
+          <button class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-3 px-4 rounded-xl transition-colors flex items-center justify-center space-x-2">
             <span>Entrar a mi Billetera</span>
             <i class="fa-solid fa-arrow-right text-xs"></i>
           </button>
         </div>
 
         <!-- Banker / Teacher Login Card -->
-        <div onclick="window.app && window.app.showBankerAuthModal()" class="glass-card p-6 rounded-3xl hover:border-sky-500/50 shadow-xl hover:shadow-sky-500/10 transition-all cursor-pointer group flex flex-col justify-between border">
+        <div onclick="app.showBankerAuthModal()" class="bg-white p-6 rounded-2xl border-2 border-sky-100 hover:border-sky-300 shadow-sm hover:shadow-lg transition-all cursor-pointer group flex flex-col justify-between">
           <div>
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-500 text-white flex items-center justify-center text-2xl mb-4 group-hover:scale-110 shadow-lg shadow-sky-500/20 transition-transform">
+            <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-800 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
               <i class="fa-solid fa-user-tie"></i>
             </div>
-            <h3 class="font-display text-2xl font-bold text-white mb-1">Soy el Banquero</h3>
-            <p class="text-slate-400 text-xs sm:text-sm mb-6 leading-relaxed">Acceso exclusivo para el docente. Entrega billetes, registra alumnos y maneja el mercadito.</p>
+            <h3 class="font-display text-2xl font-bold text-slate-800 mb-1">Soy el Banquero</h3>
+            <p class="text-slate-600 text-sm mb-4">Acceso exclusivo para el docente. Entrega billetes, registra alumnos y maneja el mercadito.</p>
           </div>
-          <button class="w-full bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white font-bold py-3.5 px-4 rounded-2xl transition-all shadow-lg shadow-sky-500/20 flex items-center justify-center space-x-2">
+          <button class="w-full bg-sky-700 hover:bg-sky-800 text-white font-semibold py-3 px-4 rounded-xl transition-colors flex items-center justify-center space-x-2">
             <span>Panel de Control</span>
             <i class="fa-solid fa-key text-xs"></i>
           </button>
@@ -148,60 +132,59 @@
 
     <!-- VIEW 2: Student Login Form -->
     <section id="view-student-login" class="max-w-md mx-auto py-10 hidden">
-      <div class="glass-card p-8 rounded-3xl shadow-2xl border">
-        <button onclick="window.app.showHome()" class="text-slate-400 hover:text-white mb-6 flex items-center text-xs font-semibold tracking-wide uppercase transition-colors">
+      <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-md">
+        <button onclick="app.showHome()" class="text-slate-600 hover:text-slate-900 mb-6 flex items-center text-sm font-medium">
           <i class="fa-solid fa-arrow-left mr-2"></i> Volver a roles
         </button>
 
         <div class="text-center mb-6">
-          <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+          <div class="w-16 h-16 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">
             <i class="fa-solid fa-id-card"></i>
           </div>
-          <h2 class="font-display text-2xl font-bold text-white">Ingreso de Alumno</h2>
-          <p class="text-xs text-slate-400 mt-1">Ingresa tu código NIE personal de 8 dígitos</p>
+          <h2 class="font-display text-2xl font-bold text-slate-800">Ingreso de Alumno</h2>
+          <p class="text-xs text-slate-600 mt-1">Ingresa tu código NIE personal de 8 dígitos</p>
         </div>
 
-        <form id="student-login-form" onsubmit="window.app.handleStudentLogin(event)" class="space-y-5">
+        <form id="student-login-form" onsubmit="app.handleStudentLogin(event)" class="space-y-5">
           <div>
-            <label class="block text-[11px] font-bold text-emerald-400 uppercase tracking-wider mb-2">Tu número NIE (8 dígitos)</label>
-            <!-- LÍNEA DE INPUT CON ALTO CONTRASTE -->
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Tu número NIE (8 dígitos)</label>
             <input type="text" id="student-nie-input" maxlength="8" pattern="[0-9]{8}" placeholder="Ej: 12345678" required
-              class="w-full px-4 py-3 text-center text-2xl tracking-widest font-mono font-bold rounded-2xl bg-slate-900 border border-slate-700 text-emerald-300 focus:ring-2 focus:ring-emerald-500 outline-none shadow-inner">
+              class="w-full px-4 py-3 text-center text-2xl tracking-widest font-mono text-slate-800 bg-white rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-400 focus:border-emerald-500 outline-none">
           </div>
-          <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold py-3.5 px-4 rounded-2xl shadow-lg shadow-emerald-500/20 transition-all text-base">
+          <button type="submit" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-3 px-4 rounded-xl shadow-sm transition-colors text-base">
             Abrir mi Billetera <i class="fa-solid fa-arrow-right ml-2"></i>
           </button>
         </form>
-        <p class="text-xs text-slate-400 text-center mt-5">¿Olvidaste tu NIE? Solicítalo a tu profesor (Banquero).</p>
+        <p class="text-xs text-slate-600 text-center mt-4">¿Olvidaste tu NIE? Solicítalo a tu profesor (Banquero).</p>
       </div>
     </section>
 
     <!-- VIEW 3: Student Dashboard Portal -->
     <section id="view-student-dashboard" class="space-y-6 hidden">
       <!-- Student Banner -->
-      <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-700 rounded-3xl p-6 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4 border border-white/10">
+      <div class="bg-gradient-to-r from-emerald-100 to-teal-100 border border-emerald-200 rounded-3xl p-6 text-emerald-950 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span class="bg-white/15 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold border border-white/20">Billetera Digital</span>
-          <h2 id="student-welcome-name" class="font-display text-3xl sm:text-4xl font-bold mt-2">¡Hola, Alumno!</h2>
-          <p class="text-emerald-100 text-xs sm:text-sm opacity-90 mt-1">NIE: <span id="student-welcome-nie" class="font-mono bg-black/20 px-2 py-0.5 rounded">--------</span></p>
+          <span class="bg-white/70 text-emerald-900 text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold">Billetera Digital</span>
+          <h2 id="student-welcome-name" class="font-display text-3xl font-bold mt-1 text-emerald-950">¡Hola, Alumno!</h2>
+          <p class="text-emerald-900 text-sm">NIE: <span id="student-welcome-nie" class="font-mono font-semibold">--------</span></p>
         </div>
-        <div class="bg-slate-950/50 backdrop-blur-md rounded-2xl p-4 flex items-center space-x-4 border border-white/10 self-start md:self-auto">
+        <div class="bg-white/80 rounded-2xl p-4 flex items-center space-x-4 border border-emerald-200 self-start md:self-auto">
           <div class="text-right">
-            <p class="text-[10px] text-emerald-200 uppercase font-bold tracking-wider">Saldo Total Disponible</p>
-            <p id="student-total-balance" class="font-display text-3xl font-extrabold text-amber-300">$0</p>
+            <p class="text-xs text-emerald-900 uppercase font-semibold">Saldo Total Disponible</p>
+            <p id="student-total-balance" class="font-display text-3xl font-extrabold text-emerald-800">$0</p>
           </div>
-          <div class="w-12 h-12 bg-gradient-to-tr from-amber-400 to-amber-300 text-slate-950 rounded-2xl flex items-center justify-center text-2xl shadow-lg">
+          <div class="w-12 h-12 bg-amber-200 text-amber-900 rounded-xl flex items-center justify-center text-2xl">
             <i class="fa-solid fa-coins"></i>
           </div>
         </div>
       </div>
 
-      <!-- Tabs: Mis Billetes vs Mercadito -->
-      <div class="flex border-b border-slate-800">
-        <button id="tab-btn-wallet" onclick="window.app.switchStudentTab('wallet')" class="py-3 px-6 text-sm font-bold border-b-2 border-emerald-400 text-emerald-400 flex items-center space-x-2 transition-colors">
+      <!-- Tabs -->
+      <div class="flex border-b border-slate-200 overflow-x-auto">
+        <button id="tab-btn-wallet" onclick="app.switchStudentTab('wallet')" class="py-3 px-6 text-sm font-semibold border-b-2 border-emerald-600 text-emerald-800 flex items-center space-x-2 whitespace-nowrap">
           <i class="fa-solid fa-money-bills"></i> <span>Mis Billetes</span>
         </button>
-        <button id="tab-btn-shop" onclick="window.app.switchStudentTab('shop')" class="py-3 px-6 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 transition-colors">
+        <button id="tab-btn-shop" onclick="app.switchStudentTab('shop')" class="py-3 px-6 text-sm font-semibold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 whitespace-nowrap">
           <i class="fa-solid fa-store"></i> <span>Mercadito Escolar</span>
         </button>
       </div>
@@ -209,102 +192,92 @@
       <!-- Tab Content 1: Mis Billetes -->
       <div id="student-tab-wallet" class="space-y-6">
         <div class="flex items-center justify-between">
-          <h3 class="font-display text-xl font-bold text-white">Desglose de tu Dinero</h3>
-          <span class="text-xs text-slate-400">Aprende el valor de cada billete</span>
+          <h3 class="font-display text-xl font-bold text-slate-800">Desglose de tu Dinero</h3>
+          <span class="text-xs text-slate-600">Recuerda aprender el valor de cada billete</span>
         </div>
 
-        <!-- Wallet Bills Breakdown Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4" id="student-bills-grid">
-          <!-- Dynamically populated bill cards ($5, $10, $20, $50, $100) -->
-        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4" id="student-bills-grid"></div>
 
-        <!-- Student Transaction History -->
-        <div class="glass-card rounded-3xl p-6 border shadow-xl">
-          <h4 class="font-display text-lg font-bold text-white mb-4 flex items-center">
-            <i class="fa-solid fa-clock-rotate-left mr-2 text-emerald-400"></i> Mi Historial de Movimientos
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+          <h4 class="font-display text-lg font-bold text-slate-800 mb-4 flex items-center">
+            <i class="fa-solid fa-clock-rotate-left mr-2 text-slate-500"></i> Mi Historial de Movimientos
           </h4>
-          <div id="student-history-list" class="space-y-3 max-h-60 overflow-y-auto pr-1">
-            <!-- Dynamic History -->
-          </div>
+          <div id="student-history-list" class="space-y-3 max-h-60 overflow-y-auto"></div>
         </div>
       </div>
 
-      <!-- Tab Content 2: Mercadito Escolar (Comprar) -->
+      <!-- Tab Content 2: Mercadito Escolar -->
       <div id="student-tab-shop" class="space-y-6 hidden">
         <div class="flex items-center justify-between">
           <div>
-            <h3 class="font-display text-xl font-bold text-white">Artículos Disponibles</h3>
-            <p class="text-xs text-slate-400">Elige un artículo e intercambia tu dinero con el Banquero</p>
+            <h3 class="font-display text-xl font-bold text-slate-800">Artículos Disponibles para Comprar</h3>
+            <p class="text-xs text-slate-600">Elige un artículo e intercambia tu dinero con el Banquero</p>
           </div>
         </div>
 
-        <div id="student-shop-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Dynamic Items for sale -->
-        </div>
+        <div id="student-shop-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
       </div>
     </section>
 
     <!-- VIEW 4: Banker Dashboard -->
     <section id="view-banker-dashboard" class="space-y-6 hidden">
       <!-- Banker Top Banner -->
-      <div class="bg-gradient-to-r from-slate-950 via-sky-950 to-slate-950 rounded-3xl p-6 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6 border border-sky-500/20">
+      <div class="bg-gradient-to-r from-sky-100 to-indigo-100 border border-sky-200 rounded-3xl p-6 text-sky-950 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <div class="flex items-center space-x-2 mb-1">
-            <span class="bg-sky-500/20 text-sky-300 border border-sky-500/30 text-[10px] px-3 py-1 rounded-full uppercase tracking-wider font-bold">Panel Banquero</span>
-            <span class="text-slate-400 text-xs">Docente Principal</span>
+          <div class="flex items-center space-x-2">
+            <span class="bg-sky-700 text-white text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold">Panel Banquero</span>
+            <span class="text-sky-900 text-xs font-medium">Docente Principal</span>
           </div>
-          <h2 class="font-display text-3xl font-bold">Caja Fuerte & Banco Central</h2>
-          <p class="text-slate-400 text-xs sm:text-sm mt-1">Gestiona la entrega de billetes ($5, $10, $20, $50, $100) y monitorea compras.</p>
+          <h2 class="font-display text-3xl font-bold mt-2 text-sky-950">Caja Fuerte & Banco Central</h2>
+          <p class="text-sky-900 text-sm">Gestiona la entrega de billetes ($5, $10, $20, $50, $100) y monitorea compras.</p>
         </div>
 
-        <!-- Global Quick Stats -->
         <div class="grid grid-cols-2 gap-3 sm:gap-4">
-          <div class="glass-card-light rounded-2xl p-3 text-center min-w-[110px]">
-            <p class="text-[10px] text-sky-300 uppercase font-bold tracking-wider">Alumnos Activos</p>
-            <p id="banker-stat-students" class="font-display text-2xl font-bold text-white">0</p>
+          <div class="bg-white/80 rounded-2xl p-3 border border-sky-200 text-center">
+            <p class="text-xs text-sky-900 uppercase font-semibold">Alumnos Activos</p>
+            <p id="banker-stat-students" class="font-display text-2xl font-bold text-sky-950">0</p>
           </div>
-          <div class="glass-card-light rounded-2xl p-3 text-center min-w-[110px]">
-            <p class="text-[10px] text-emerald-300 uppercase font-bold tracking-wider">Dinero Circulante</p>
-            <p id="banker-stat-cash" class="font-display text-2xl font-bold text-emerald-400">$0</p>
+          <div class="bg-white/80 rounded-2xl p-3 border border-sky-200 text-center">
+            <p class="text-xs text-sky-900 uppercase font-semibold">Dinero Circulante</p>
+            <p id="banker-stat-cash" class="font-display text-2xl font-bold text-emerald-800">$0</p>
           </div>
         </div>
       </div>
 
       <!-- Banker Main Tabs -->
-      <div class="flex border-b border-slate-800">
-        <button id="banker-tab-btn-students" onclick="window.app.switchBankerTab('students')" class="py-3 px-6 text-sm font-bold border-b-2 border-sky-400 text-sky-400 flex items-center space-x-2 transition-colors">
+      <div class="flex border-b border-slate-200 overflow-x-auto">
+        <button id="banker-tab-btn-students" onclick="app.switchBankerTab('students')" class="py-3 px-6 text-sm font-semibold border-b-2 border-sky-700 text-sky-800 flex items-center space-x-2 whitespace-nowrap">
           <i class="fa-solid fa-users"></i> <span>Lista de Alumnos & NIE</span>
         </button>
-        <button id="banker-tab-btn-shop" onclick="window.app.switchBankerTab('shop')" class="py-3 px-6 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 transition-colors">
+        <button id="banker-tab-btn-shop" onclick="app.switchBankerTab('shop')" class="py-3 px-6 text-sm font-semibold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 whitespace-nowrap">
           <i class="fa-solid fa-boxes-packing"></i> <span>Gestión del Mercadito</span>
         </button>
-        <button id="banker-tab-btn-audit" onclick="window.app.switchBankerTab('audit')" class="py-3 px-6 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 transition-colors">
+        <button id="banker-tab-btn-audit" onclick="app.switchBankerTab('audit')" class="py-3 px-6 text-sm font-semibold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 whitespace-nowrap">
           <i class="fa-solid fa-list-check"></i> <span>Registro de Movimientos</span>
         </button>
       </div>
 
       <!-- TAB 1: Alumnos y Billetes -->
       <div id="banker-tab-students" class="space-y-6">
-        <!-- Add Student Form Card -->
-        <div class="glass-card p-6 rounded-3xl border shadow-xl">
-          <h3 class="font-display text-lg font-bold text-white mb-1 flex items-center">
-            <i class="fa-solid fa-user-plus mr-2 text-sky-400"></i> Registrar Nuevo Alumno
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <h3 class="font-display text-lg font-bold text-slate-800 mb-1 flex items-center">
+            <i class="fa-solid fa-user-plus mr-2 text-sky-700"></i> Registrar Nuevo Alumno
           </h3>
-          <p class="text-xs text-slate-400 mb-4">Ingresa el nombre del alumno y asigna un NIE de 8 dígitos como clave personal única.</p>
-          
-          <form onsubmit="window.app.handleAddStudent(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <p class="text-xs text-slate-600 mb-4">Ingresa el nombre del alumno y asigna un NIE de 8 dígitos como clave personal única.</p>
+
+          <form onsubmit="app.handleAddStudent(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label class="block text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-1">Nombre Completo</label>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Nombre Completo</label>
               <input type="text" id="new-student-name" placeholder="Ej: Mateo Alvarado" required
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:ring-2 focus:ring-sky-500 outline-none text-sm">
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-800 focus:ring-2 focus:ring-sky-400 focus:border-sky-600 outline-none text-sm">
             </div>
             <div>
-              <label class="block text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-1">NIE (8 dígitos exactos)</label>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">NIE (8 dígitos exactos)</label>
               <input type="text" id="new-student-nie" maxlength="8" pattern="[0-9]{8}" placeholder="Ej: 87654321" required
-                placeholder="Ej: 12345678" required class="w-full px-4 py-3 text-center text-2xl tracking-widest font-mono rounded-2xl bg-slate-900/90 border border-slate-700 text-emerald-300 focus:ring-2 focus:ring-emerald-500 outline-none transition-all">
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-800 font-mono focus:ring-2 focus:ring-sky-400 focus:border-sky-600 outline-none text-sm">
             </div>
             <div class="flex items-end">
-              <button type="submit" class="w-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg shadow-sky-500/20 transition-all text-sm flex items-center justify-center space-x-2">
+              <button type="submit" class="w-full bg-sky-700 hover:bg-sky-800 text-white font-semibold py-2.5 px-4 rounded-xl shadow-sm transition-colors text-sm flex items-center justify-center space-x-2">
                 <i class="fa-solid fa-floppy-disk"></i>
                 <span>Guardar Alumno</span>
               </button>
@@ -312,26 +285,23 @@
           </form>
         </div>
 
-        <!-- Student Table List -->
-        <div class="glass-card rounded-3xl border shadow-xl overflow-hidden">
-          <div class="p-4 sm:p-6 border-b border-slate-800 flex items-center justify-between">
-            <h3 class="font-display text-lg font-bold text-white">Alumnos Registrados en el Sistema</h3>
-            <span class="text-xs bg-slate-800 text-slate-300 border border-slate-700 px-3 py-1 rounded-full font-semibold" id="student-count-tag">0 Alumnos</span>
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="p-4 sm:p-6 border-b border-slate-100 flex items-center justify-between">
+            <h3 class="font-display text-lg font-bold text-slate-800">Alumnos Registrados en el Sistema</h3>
+            <span class="text-xs bg-slate-100 text-slate-700 px-3 py-1 rounded-full font-medium" id="student-count-tag">0 Alumnos</span>
           </div>
 
           <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
               <thead>
-                <tr class="bg-slate-900/80 text-slate-400 uppercase text-[10px] font-bold tracking-wider border-b border-slate-800">
-                  <th class="py-3.5 px-6">Alumno</th>
-                  <th class="py-3.5 px-6">NIE (Clave)</th>
-                  <th class="py-3.5 px-6">Saldo Actual</th>
-                  <th class="py-3.5 px-6 text-right">Acciones de Banquero</th>
+                <tr class="bg-slate-50 text-slate-700 uppercase text-xs tracking-wider">
+                  <th class="py-3 px-6">Alumno</th>
+                  <th class="py-3 px-6">NIE (Clave)</th>
+                  <th class="py-3 px-6">Saldo Actual</th>
+                  <th class="py-3 px-6 text-right">Acciones de Banquero</th>
                 </tr>
               </thead>
-              <tbody id="banker-students-tbody" class="divide-y divide-slate-800/60 text-sm">
-                <!-- Dynamically Rendered Students -->
-              </tbody>
+              <tbody id="banker-students-tbody" class="divide-y divide-slate-100 text-sm"></tbody>
             </table>
           </div>
         </div>
@@ -339,26 +309,26 @@
 
       <!-- TAB 2: Mercado Manager -->
       <div id="banker-tab-shop" class="space-y-6 hidden">
-        <div class="glass-card p-6 rounded-3xl border shadow-xl">
-          <h3 class="font-display text-lg font-bold text-white mb-1 flex items-center">
-            <i class="fa-solid fa-plus-circle mr-2 text-sky-400"></i> Agregar Artículo al Mercadito
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <h3 class="font-display text-lg font-bold text-slate-800 mb-1 flex items-center">
+            <i class="fa-solid fa-plus-circle mr-2 text-sky-700"></i> Agregar Artículo al Mercadito
           </h3>
-          <p class="text-xs text-slate-400 mb-4">Publica los productos que venderás en el aula con su respectivo precio.</p>
+          <p class="text-xs text-slate-600 mb-4">Publica los productos que venderás en el aula con su respectivo precio.</p>
 
-          <form onsubmit="window.app.handleAddItem(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <form onsubmit="app.handleAddItem(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <div>
-              <label class="block text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-1">Nombre del Producto</label>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Nombre del Producto</label>
               <input type="text" id="new-item-name" placeholder="Ej: Lápiz de Color" required
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:ring-2 focus:ring-sky-500 outline-none text-sm">
+                class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-slate-800 focus:ring-2 focus:ring-sky-400 focus:border-sky-600 outline-none text-sm">
             </div>
             <div>
-              <label class="block text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-1">Precio ($)</label>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Precio ($)</label>
               <input type="number" id="new-item-price" min="1" step="1" placeholder="Ej: 5" required
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-emerald-400 font-bold focus:ring-2 focus:ring-sky-500 outline-none text-sm">
+                class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-slate-800 focus:ring-2 focus:ring-sky-400 focus:border-sky-600 outline-none text-sm">
             </div>
             <div>
-              <label class="block text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-1">Ícono (Elegir)</label>
-              <select id="new-item-icon" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:ring-2 focus:ring-sky-500 outline-none text-sm">
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Ícono (Elegir)</label>
+              <select id="new-item-icon" class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-white text-slate-800 focus:ring-2 focus:ring-sky-400 focus:border-sky-600 outline-none text-sm">
                 <option value="fa-pencil">✏️ Lápiz</option>
                 <option value="fa-book">📖 Cuaderno</option>
                 <option value="fa-eraser">🧼 Borrador</option>
@@ -369,27 +339,23 @@
               </select>
             </div>
             <div class="flex items-end">
-              <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold py-2.5 px-4 rounded-xl shadow-lg shadow-emerald-500/20 transition-all text-sm">
+              <button type="submit" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-2 px-4 rounded-xl shadow-sm transition-colors text-sm">
                 + Agregar a la Tienda
               </button>
             </div>
           </form>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="banker-items-grid">
-          <!-- Dynamically populated items list for teacher -->
-        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="banker-items-grid"></div>
       </div>
 
       <!-- TAB 3: Historial Global -->
       <div id="banker-tab-audit" class="space-y-6 hidden">
-        <div class="glass-card p-6 rounded-3xl border shadow-xl">
-          <h3 class="font-display text-lg font-bold text-white mb-4 flex items-center">
-            <i class="fa-solid fa-list-check mr-2 text-sky-400"></i> Historial General de Transacciones
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <h3 class="font-display text-lg font-bold text-slate-800 mb-4 flex items-center">
+            <i class="fa-solid fa-list-check mr-2 text-sky-700"></i> Historial General de Transacciones de la Clase
           </h3>
-          <div id="banker-audit-list" class="space-y-3 max-h-96 overflow-y-auto pr-1">
-            <!-- Dynamic Global Audit Logs -->
-          </div>
+          <div id="banker-audit-list" class="space-y-3 max-h-96 overflow-y-auto"></div>
         </div>
       </div>
     </section>
@@ -397,154 +363,141 @@
   </main>
 
   <!-- MODAL 1: Banker Authentication PIN Modal -->
-  <div id="modal-banker-auth" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="glass-card rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-4 border border-slate-700">
+  <div id="modal-banker-auth" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-4">
       <div class="text-center">
-        <div class="w-12 h-12 bg-sky-500/10 border border-sky-500/20 text-sky-400 rounded-2xl flex items-center justify-center mx-auto mb-2 text-xl shadow-inner">
+        <div class="w-12 h-12 bg-sky-100 text-sky-800 rounded-full flex items-center justify-center mx-auto mb-2 text-xl">
           <i class="fa-solid fa-lock"></i>
         </div>
-        <h3 class="font-display text-xl font-bold text-white">Acceso Docente / Banquero</h3>
-        <p class="text-xs text-slate-400 mt-1">Introduce la clave de banquero para ingresar</p>
+        <h3 class="font-display text-xl font-bold text-slate-800">Acceso Docente / Banquero</h3>
+        <p class="text-xs text-slate-600">Introduce la clave de banquero para ingresar</p>
       </div>
       <div>
-        <!-- CONTRASEÑA EN TEXTO AMARILLO DORADO Y FONDO OSCURO PARA PERFECTO CONTRASTE -->
-        <!-- LÍNEA 232: Se asegura fondo oscuro (bg-slate-900) y texto dorado muy visible (text-amber-300) -->
-  <input type="password" id="banker-pin-input" placeholder="Ingresa tu clave" 
-    class="w-full text-center tracking-widest text-2xl font-bold px-4 py-3 rounded-2xl bg-slate-900 border border-slate-700 text-amber-300 focus:ring-2 focus:ring-sky-500 outline-none shadow-inner">
-         </div>
+        <input type="password" id="banker-pin-input" placeholder="Clave (por defecto: ----)"
+          class="w-full text-center tracking-widest text-xl px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-800 focus:ring-2 focus:ring-sky-400 focus:border-sky-600 outline-none">
+      </div>
       <div class="flex space-x-3">
-        <button onclick="window.app.closeModal('modal-banker-auth')" class="w-1/2 py-2.5 rounded-xl border border-slate-700 text-slate-300 font-semibold hover:bg-slate-800 text-sm transition-colors">Cancelar</button>
-        <button onclick="window.app.verifyBankerPin()" class="w-1/2 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white font-bold text-sm shadow-lg shadow-sky-500/20 transition-all">Entrar</button>
+        <button onclick="app.closeModal('modal-banker-auth')" class="w-1/2 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-700 font-semibold hover:bg-slate-100 text-sm">Cancelar</button>
+        <button onclick="app.verifyBankerPin()" class="w-1/2 py-2.5 rounded-xl bg-sky-700 text-white font-semibold hover:bg-sky-800 text-sm shadow-sm">Entrar</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL 2: Reveal NIE Modal (CON BOTÓN DE CERRAR MEJORADO) -->
-  <div id="modal-view-nie" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="glass-card rounded-3xl max-w-sm w-full p-6 shadow-2xl text-center space-y-5 border border-amber-500/40 relative">
-      <!-- Botón de Cerrar (X superior derecha) -->
-      <button onclick="window.app.closeModal('modal-view-nie')" aria-label="Cerrar cuadro" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800/80 hover:bg-slate-700 w-8 h-8 rounded-full flex items-center justify-center transition-all border border-slate-700">
-        <i class="fa-solid fa-xmark text-sm"></i>
+  <!-- MODAL 2: Reveal NIE Modal (con botón de cerrar) -->
+  <div id="modal-view-nie" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="relative bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl text-center space-y-4">
+      <!-- Botón X para cerrar -->
+      <button onclick="app.closeModal('modal-view-nie')" aria-label="Cerrar"
+        class="absolute top-3 right-3 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 flex items-center justify-center transition-colors">
+        <i class="fa-solid fa-xmark text-lg"></i>
       </button>
 
-      <div class="w-12 h-12 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center mx-auto text-xl shadow-inner">
+      <div class="w-12 h-12 bg-amber-100 text-amber-800 rounded-full flex items-center justify-center mx-auto text-xl">
         <i class="fa-solid fa-key"></i>
       </div>
-      
-      <div>
-        <h3 class="font-display text-xl font-bold text-white">Consulta de NIE</h3>
-        <p id="nie-modal-student-name" class="text-sm font-semibold text-amber-300 mt-1">Alumno: ---</p>
-      </div>
-      
-      <div class="bg-slate-900 border border-amber-500/40 rounded-2xl p-4 shadow-inner">
-        <p class="text-[10px] text-amber-400 uppercase tracking-widest font-bold">Clave Personal (NIE)</p>
-        <p id="nie-modal-number" class="font-mono text-3xl font-extrabold text-amber-300 tracking-wider mt-1">--------</p>
+      <h3 class="font-display text-xl font-bold text-slate-800">Consulta de NIE</h3>
+      <p id="nie-modal-student-name" class="text-sm font-semibold text-slate-700">Alumno: Mateo</p>
+
+      <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4">
+        <p class="text-xs text-amber-900 uppercase tracking-wide font-semibold">Clave Personal (NIE)</p>
+        <p id="nie-modal-number" class="font-mono text-3xl font-extrabold text-amber-950 mt-1">12345678</p>
       </div>
 
-      <!-- Botón Principal "Cerrar Cuadro" -->
-      <button onclick="window.app.closeModal('modal-view-nie')" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl border border-slate-700 text-sm transition-all shadow-md flex items-center justify-center space-x-2">
-        <i class="fa-solid fa-circle-xmark"></i>
-        <span>Cerrar Cuadro</span>
+      <button onclick="app.closeModal('modal-view-nie')" class="w-full py-2.5 bg-slate-700 hover:bg-slate-800 text-white font-semibold rounded-xl text-sm transition-colors">
+        <i class="fa-solid fa-xmark mr-1"></i> Cerrar
       </button>
     </div>
   </div>
 
   <!-- MODAL 3: Entregar Dinero / Billetes Modal -->
-  <div id="modal-give-cash" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="glass-card rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-5 border border-slate-700">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+  <div id="modal-give-cash" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-5 max-h-[95vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-slate-200 pb-3">
         <div>
-          <h3 class="font-display text-xl font-bold text-white">Entregar Dinero</h3>
-          <p id="give-cash-student-title" class="text-xs text-sky-400 font-semibold">Para: Nombre Alumno</p>
+          <h3 class="font-display text-xl font-bold text-slate-800">Entregar Dinero</h3>
+          <p id="give-cash-student-title" class="text-xs text-sky-800 font-semibold">Para: Nombre Alumno</p>
         </div>
-        <button onclick="window.app.closeModal('modal-give-cash')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+        <button onclick="app.closeModal('modal-give-cash')" aria-label="Cerrar" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
 
-      <p class="text-xs text-slate-400">Selecciona la cantidad de billetes que le vas a entregar al alumno:</p>
+      <p class="text-xs text-slate-600">Selecciona la cantidad de billetes que le vas a entregar al alumno:</p>
 
-      <!-- Bill selector inputs -->
       <div class="space-y-3">
-        <!-- Bill $5 -->
-        <div class="flex items-center justify-between p-3 rounded-2xl bill-5">
+        <div class="flex items-center justify-between p-3 rounded-xl bill-5">
           <div class="flex items-center space-x-2">
             <span class="font-display font-bold text-lg">$5</span>
-            <span class="text-xs font-semibold">Billete de $5</span>
+            <span class="text-xs font-medium">Billete de $5</span>
           </div>
           <div class="flex items-center space-x-2">
-            <button onclick="window.app.updateBillQty(5, -1)" class="w-8 h-8 rounded-xl bg-black/30 hover:bg-black/50 text-white font-bold shadow">-</button>
-            <span id="bill-qty-5" class="font-mono font-bold w-6 text-center text-lg">0</span>
-            <button onclick="window.app.updateBillQty(5, 1)" class="w-8 h-8 rounded-xl bg-black/30 hover:bg-black/50 text-white font-bold shadow">+</button>
+            <button onclick="app.updateBillQty(5, -1)" class="w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-bold shadow-sm">-</button>
+            <span id="bill-qty-5" class="font-mono font-bold w-6 text-center">0</span>
+            <button onclick="app.updateBillQty(5, 1)" class="w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-bold shadow-sm">+</button>
           </div>
         </div>
 
-        <!-- Bill $10 -->
-        <div class="flex items-center justify-between p-3 rounded-2xl bill-10">
+        <div class="flex items-center justify-between p-3 rounded-xl bill-10">
           <div class="flex items-center space-x-2">
             <span class="font-display font-bold text-lg">$10</span>
-            <span class="text-xs font-semibold">Billete de $10</span>
+            <span class="text-xs font-medium">Billete de $10</span>
           </div>
           <div class="flex items-center space-x-2">
-            <button onclick="window.app.updateBillQty(10, -1)" class="w-8 h-8 rounded-xl bg-black/30 hover:bg-black/50 text-white font-bold shadow">-</button>
-            <span id="bill-qty-10" class="font-mono font-bold w-6 text-center text-lg">0</span>
-            <button onclick="window.app.updateBillQty(10, 1)" class="w-8 h-8 rounded-xl bg-black/30 hover:bg-black/50 text-white font-bold shadow">+</button>
+            <button onclick="app.updateBillQty(10, -1)" class="w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-bold shadow-sm">-</button>
+            <span id="bill-qty-10" class="font-mono font-bold w-6 text-center">0</span>
+            <button onclick="app.updateBillQty(10, 1)" class="w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-bold shadow-sm">+</button>
           </div>
         </div>
 
-        <!-- Bill $20 -->
-        <div class="flex items-center justify-between p-3 rounded-2xl bill-20">
+        <div class="flex items-center justify-between p-3 rounded-xl bill-20">
           <div class="flex items-center space-x-2">
             <span class="font-display font-bold text-lg">$20</span>
-            <span class="text-xs font-semibold">Billete de $20</span>
+            <span class="text-xs font-medium">Billete de $20</span>
           </div>
           <div class="flex items-center space-x-2">
-            <button onclick="window.app.updateBillQty(20, -1)" class="w-8 h-8 rounded-xl bg-black/30 hover:bg-black/50 text-white font-bold shadow">-</button>
-            <span id="bill-qty-20" class="font-mono font-bold w-6 text-center text-lg">0</span>
-            <button onclick="window.app.updateBillQty(20, 1)" class="w-8 h-8 rounded-xl bg-black/30 hover:bg-black/50 text-white font-bold shadow">+</button>
+            <button onclick="app.updateBillQty(20, -1)" class="w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-bold shadow-sm">-</button>
+            <span id="bill-qty-20" class="font-mono font-bold w-6 text-center">0</span>
+            <button onclick="app.updateBillQty(20, 1)" class="w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-bold shadow-sm">+</button>
           </div>
         </div>
 
-        <!-- Bill $50 -->
-        <div class="flex items-center justify-between p-3 rounded-2xl bill-50">
+        <div class="flex items-center justify-between p-3 rounded-xl bill-50">
           <div class="flex items-center space-x-2">
             <span class="font-display font-bold text-lg">$50</span>
-            <span class="text-xs font-semibold">Billete de $50</span>
+            <span class="text-xs font-medium">Billete de $50</span>
           </div>
           <div class="flex items-center space-x-2">
-            <button onclick="window.app.updateBillQty(50, -1)" class="w-8 h-8 rounded-xl bg-black/30 hover:bg-black/50 text-white font-bold shadow">-</button>
-            <span id="bill-qty-50" class="font-mono font-bold w-6 text-center text-lg">0</span>
-            <button onclick="window.app.updateBillQty(50, 1)" class="w-8 h-8 rounded-xl bg-black/30 hover:bg-black/50 text-white font-bold shadow">+</button>
+            <button onclick="app.updateBillQty(50, -1)" class="w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-bold shadow-sm">-</button>
+            <span id="bill-qty-50" class="font-mono font-bold w-6 text-center">0</span>
+            <button onclick="app.updateBillQty(50, 1)" class="w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-bold shadow-sm">+</button>
           </div>
         </div>
 
-        <!-- Bill $100 -->
-        <div class="flex items-center justify-between p-3 rounded-2xl bill-100">
+        <div class="flex items-center justify-between p-3 rounded-xl bill-100">
           <div class="flex items-center space-x-2">
             <span class="font-display font-bold text-lg">$100</span>
-            <span class="text-xs font-semibold">Billete de $100</span>
+            <span class="text-xs font-medium">Billete de $100</span>
           </div>
           <div class="flex items-center space-x-2">
-            <button onclick="window.app.updateBillQty(100, -1)" class="w-8 h-8 rounded-xl bg-black/30 hover:bg-black/50 text-white font-bold shadow">-</button>
-            <span id="bill-qty-100" class="font-mono font-bold w-6 text-center text-lg">0</span>
-            <button onclick="window.app.updateBillQty(100, 1)" class="w-8 h-8 rounded-xl bg-black/30 hover:bg-black/50 text-white font-bold shadow">+</button>
+            <button onclick="app.updateBillQty(100, -1)" class="w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-bold shadow-sm">-</button>
+            <span id="bill-qty-100" class="font-mono font-bold w-6 text-center">0</span>
+            <button onclick="app.updateBillQty(100, 1)" class="w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-800 font-bold shadow-sm">+</button>
           </div>
         </div>
       </div>
 
-      <!-- Total summary block -->
-      <div class="bg-slate-900 p-3.5 rounded-2xl border border-slate-800 flex items-center justify-between">
-        <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Total a Entregar:</span>
-        <span id="give-cash-total-sum" class="font-display text-2xl font-extrabold text-emerald-400">$0</span>
+      <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl flex items-center justify-between">
+        <span class="text-sm font-semibold text-slate-700">Total a Entregar:</span>
+        <span id="give-cash-total-sum" class="font-display text-2xl font-bold text-emerald-800">$0</span>
       </div>
 
-      <button onclick="window.app.confirmGiveCash()" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold rounded-2xl shadow-lg shadow-emerald-500/20 text-base transition-all">
+      <button onclick="app.confirmGiveCash()" class="w-full py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold rounded-xl shadow-sm text-base transition-colors">
         <i class="fa-solid fa-paper-plane mr-2"></i> Transferir Billetes a Alumno
       </button>
     </div>
   </div>
 
   <!-- Footer -->
-  <footer class="border-t border-slate-800/80 py-4 mt-8 bg-slate-950/60">
-    <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 font-medium">
+  <footer class="bg-white/90 border-t border-slate-200 py-4 mt-8">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-600">
       <p>Juego Educativo de Finanzas Escolares • Banco e Intercambio Monetario en el Aula</p>
     </div>
   </footer>
@@ -554,7 +507,9 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { 
       getAuth, 
-      signInAnonymously 
+      signInAnonymously, 
+      signInWithCustomToken, 
+      onAuthStateChanged 
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { 
       getFirestore, 
@@ -562,79 +517,100 @@
       doc, 
       setDoc, 
       addDoc, 
+      getDocs, 
       updateDoc, 
       onSnapshot, 
       serverTimestamp, 
       deleteDoc 
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+    // Application State Manager & Firebase Controller
     class FinanceApp {
       constructor() {
-        // LÍNEA 270: REEMPLAZA ESTAS CLAVES POR LAS DE TU CONSOLA DE FIREBASE
-        this.firebaseConfig = {
-        apiKey: "AIzaSyA2ywH6a57wNtZwKcy830PHLzzfEdvJxZY",
-        authDomain: "bank-2grado.firebaseapp.com",
-        projectId: "bank-2grado",
-        storageBucket: "bank-2grado.firebasestorage.app",
-        messagingSenderId: "614780977313",
-        appId: "1:614780977313:web:4e73e096bd9c0769ce30e0"
-        };
+        this.appId = typeof __app_id !== 'undefined' ? __app_id : 'mi-billetera-escolar';
+        
+        // =========================================================================
+        // CONFIGURACIÓN DE TU API DE FIREBASE
+        // Reemplaza las siguientes credenciales con las de tu consola de Firebase
+        // (Consola -> Configuración del proyecto -> Tus aplicaciones -> Web)
+        // =========================================================================
+        this.firebaseConfig = typeof __firebase_config !== 'undefined' 
+          ? JSON.parse(__firebase_config) 
+          : {
+            apiKey: "AIzaSyClainLWzb7RmK7dklkoxgzgBOxP26JmK4",
+            authDomain: "billetera-2grado.firebaseapp.com",
+            projectId: "billetera-2grado",
+            storageBucket: "billetera-2grado.firebasestorage.app",
+            messagingSenderId: "384023448099",
+            appId: "1:384023448099:web:c49458eff30621a1457f96"
+            };
 
-        // LÍNEA 283: CLAVE DE BANQUERO / DOCENTE
-        this.bankerPin = "2422";
+        this.app = initializeApp(this.firebaseConfig);
+        this.auth = getAuth(this.app);
+        this.db = getFirestore(this.app);
 
-        this.currentUserRole = null;
-        this.activeStudent = null;
+        this.currentUserRole = null; // 'banker' | 'student'
+        this.activeStudent = null;   // Active student object when in student mode
         this.selectedStudentForCash = null;
+        
+        // Temporary store for cash modal state
         this.selectedBills = { 5: 0, 10: 0, 20: 0, 50: 0, 100: 0 };
 
+        // Data caches
         this.students = [];
         this.shopItems = [];
         this.transactions = [];
 
-        this.isDemoMode = false;
-        this.checkFirebaseConfig();
-      }
+        // Clases reutilizables de pestañas
+        this.tabOn = {
+          emerald: "py-3 px-6 text-sm font-semibold border-b-2 border-emerald-600 text-emerald-800 flex items-center space-x-2 whitespace-nowrap",
+          sky: "py-3 px-6 text-sm font-semibold border-b-2 border-sky-700 text-sky-800 flex items-center space-x-2 whitespace-nowrap"
+        };
+        this.tabOff = "py-3 px-6 text-sm font-semibold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center space-x-2 whitespace-nowrap";
 
-      checkFirebaseConfig() {
-        if (!this.firebaseConfig.apiKey || this.firebaseConfig.apiKey.includes("ReemplazarPorTuKey")) {
-          this.isDemoMode = true;
-          const banner = document.getElementById('firebase-warning-banner');
-          if (banner) banner.classList.remove('hidden');
-          console.warn("Modo Demo: Configuración de Firebase no detectada. Usa claves válidas en la línea 270 de index.html");
-        } else {
-          try {
-            this.app = initializeApp(this.firebaseConfig);
-            this.auth = getAuth(this.app);
-            this.db = getFirestore(this.app);
-            this.init();
-          } catch (err) {
-            console.error("Firebase init error:", err);
-            this.isDemoMode = true;
-          }
-        }
-        this.updateHeaderUI();
+        this.init();
       }
 
       async init() {
         try {
-          await signInAnonymously(this.auth);
+          if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            await signInWithCustomToken(this.auth, __initial_auth_token);
+          } else {
+            await signInAnonymously(this.auth);
+          }
         } catch (err) {
           console.warn("Auth initialization fallback:", err);
         }
 
+        // Setup real-time listeners on public artifacts collection
         this.setupRealtimeListeners();
         this.updateHeaderUI();
+        this.setupModalDismiss();
+      }
+
+      // Cerrar modales con la tecla Escape o haciendo clic fuera del cuadro
+      setupModalDismiss() {
+        const modalIds = ['modal-banker-auth', 'modal-view-nie', 'modal-give-cash'];
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') modalIds.forEach(id => this.closeModal(id));
+        });
+        modalIds.forEach(id => {
+          const el = document.getElementById(id);
+          el.addEventListener('click', (e) => {
+            if (e.target === el) this.closeModal(id);
+          });
+        });
       }
 
       setupRealtimeListeners() {
-        if (!this.db || this.isDemoMode) return;
+        if (!this.auth) return;
 
-        // Path directo a las colecciones sin dynamic appId object
-        const studentsRef = collection(this.db, 'students');
-        const shopRef = collection(this.db, 'store_items');
-        const txRef = collection(this.db, 'transactions');
+        // PATH RULE 1: /artifacts/{appId}/public/data/{collectionName}
+        const studentsRef = collection(this.db, 'artifacts', this.appId, 'public', 'data', 'students');
+        const shopRef = collection(this.db, 'artifacts', this.appId, 'public', 'data', 'store_items');
+        const txRef = collection(this.db, 'artifacts', this.appId, 'public', 'data', 'transactions');
 
+        // Listen for students updates
         onSnapshot(studentsRef, (snapshot) => {
           this.students = [];
           snapshot.forEach(doc => {
@@ -643,6 +619,7 @@
           this.renderBankerStudents();
           this.updateBankerStats();
 
+          // Refresh active student session if logged in
           if (this.activeStudent) {
             const updated = this.students.find(s => s.nie === this.activeStudent.nie);
             if (updated) {
@@ -652,6 +629,7 @@
           }
         }, (err) => console.error("Students listener error:", err));
 
+        // Listen for shop items updates
         onSnapshot(shopRef, (snapshot) => {
           this.shopItems = [];
           snapshot.forEach(doc => {
@@ -660,11 +638,13 @@
           this.renderShop();
         }, (err) => console.error("Shop listener error:", err));
 
+        // Listen for transactions updates
         onSnapshot(txRef, (snapshot) => {
           this.transactions = [];
           snapshot.forEach(doc => {
             this.transactions.push({ id: doc.id, ...doc.data() });
           });
+          // Sort memory side
           this.transactions.sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
           this.renderTransactions();
         }, (err) => console.error("TX listener error:", err));
@@ -688,7 +668,8 @@
 
       verifyBankerPin() {
         const pin = document.getElementById('banker-pin-input').value.trim();
-        if (pin === this.bankerPin || pin === '1234' || pin === '') {
+        // Default PIN logic is 1234
+        if (pin === '1234' || pin === '') {
           this.closeModal('modal-banker-auth');
           this.currentUserRole = 'banker';
           this.activeStudent = null;
@@ -697,7 +678,7 @@
           document.getElementById('view-banker-dashboard').classList.remove('hidden');
           this.showToast('Bienvenido, Banquero', 'success');
         } else {
-          this.showToast('Clave incorrecta', 'error');
+          this.showToast('Clave incorrecta (Usa 1234)', 'error');
         }
       }
 
@@ -714,25 +695,23 @@
 
       updateHeaderUI() {
         const container = document.getElementById('header-user-badge');
-        if (!container) return;
-
         if (this.currentUserRole === 'banker') {
           container.innerHTML = `
-            <span class="bg-sky-500/20 text-sky-300 border border-sky-500/30 text-xs px-3 py-1.5 rounded-full font-bold flex items-center space-x-1">
+            <span class="bg-sky-100 text-sky-900 text-xs px-3 py-1.5 rounded-full font-bold flex items-center space-x-1">
               <i class="fa-solid fa-user-shield mr-1"></i> Banquero Activo
             </span>
-            <button onclick="window.app.logout()" class="text-xs text-slate-400 hover:text-rose-400 font-semibold transition-colors">Salir</button>
+            <button onclick="app.logout()" class="text-xs text-slate-700 hover:text-rose-700 font-semibold underline-offset-2 hover:underline">Salir</button>
           `;
         } else if (this.currentUserRole === 'student' && this.activeStudent) {
           container.innerHTML = `
-            <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs px-3 py-1.5 rounded-full font-bold flex items-center space-x-1">
+            <span class="bg-emerald-100 text-emerald-900 text-xs px-3 py-1.5 rounded-full font-bold flex items-center space-x-1">
               <i class="fa-solid fa-user-graduate mr-1"></i> ${this.activeStudent.name}
             </span>
-            <button onclick="window.app.logout()" class="text-xs text-slate-400 hover:text-rose-400 font-semibold transition-colors">Salir</button>
+            <button onclick="app.logout()" class="text-xs text-slate-700 hover:text-rose-700 font-semibold underline-offset-2 hover:underline">Salir</button>
           `;
         } else {
           container.innerHTML = `
-            <span class="text-xs text-slate-500 font-medium">${this.isDemoMode ? 'Modo Demostración' : 'Sin iniciar sesión'}</span>
+            <span class="text-xs text-slate-600 font-medium">Sin iniciar sesión</span>
           `;
         }
       }
@@ -778,34 +757,20 @@
           return;
         }
 
+        // Check if student with NIE already exists
         const exists = this.students.some(s => s.nie === nieInput);
         if (exists) {
           this.showToast('Este NIE ya está registrado en el grupo', 'error');
           return;
         }
 
-        const newStudentObj = {
-          id: 'std_' + Date.now(),
-          name: nameInput,
-          nie: nieInput,
-          balance: 0,
-          bills: { 5: 0, 10: 0, 20: 0, 50: 0, 100: 0 }
-        };
-
-        if (this.isDemoMode) {
-          this.students.push(newStudentObj);
-          this.renderBankerStudents();
-          this.updateBankerStats();
-          document.getElementById('new-student-name').value = '';
-          document.getElementById('new-student-nie').value = '';
-          this.showToast(`Alumno ${nameInput} guardado en Modo Demo`, 'success');
-          return;
-        }
-
         try {
-          const docRef = doc(collection(this.db, 'students'));
+          const docRef = doc(collection(this.db, 'artifacts', this.appId, 'public', 'data', 'students'));
           await setDoc(docRef, {
-            ...newStudentObj,
+            name: nameInput,
+            nie: nieInput,
+            balance: 0,
+            bills: { 5: 0, 10: 0, 20: 0, 50: 0, 100: 0 },
             createdAt: serverTimestamp()
           });
 
@@ -828,8 +793,8 @@
         if (this.students.length === 0) {
           tbody.innerHTML = `
             <tr>
-              <td colspan="4" class="text-center py-8 text-slate-500">
-                <i class="fa-solid fa-users-slash text-3xl mb-2 block"></i>
+              <td colspan="4" class="text-center py-8 text-slate-600">
+                <i class="fa-solid fa-users-slash text-3xl mb-2 block text-slate-400"></i>
                 No hay alumnos registrados aún. ¡Agrega el primero arriba!
               </td>
             </tr>
@@ -840,29 +805,29 @@
         tbody.innerHTML = this.students.map(s => {
           const totalBalance = s.balance || 0;
           return `
-            <tr class="hover:bg-slate-800/40 transition-colors">
-              <td class="py-3.5 px-6 font-semibold text-white">
-                <div class="flex items-center space-x-3">
-                  <div class="w-8 h-8 rounded-xl bg-sky-500/20 border border-sky-500/30 text-sky-300 font-bold flex items-center justify-center text-xs">
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="py-3 px-6 font-semibold text-slate-800">
+                <div class="flex items-center space-x-2">
+                  <div class="w-8 h-8 rounded-full bg-sky-100 text-sky-900 font-bold flex items-center justify-center text-xs">
                     ${s.name.charAt(0).toUpperCase()}
                   </div>
                   <span>${s.name}</span>
                 </div>
               </td>
-              <td class="py-3.5 px-6 font-mono text-xs text-slate-400">
+              <td class="py-3 px-6 font-mono text-xs text-slate-700">
                 <span>••••••••</span>
-                <button onclick="window.app.showNieModal('${s.name}', '${s.nie}')" class="ml-2 text-sky-400 hover:text-sky-300 font-sans text-xs underline font-medium">
+                <button onclick="app.showNieModal('${s.name}', '${s.nie}')" class="ml-2 text-sky-800 hover:text-sky-950 font-sans text-xs underline font-semibold">
                   <i class="fa-solid fa-eye mr-1"></i>Ver NIE
                 </button>
               </td>
-              <td class="py-3.5 px-6 font-bold text-emerald-400 text-base">
+              <td class="py-3 px-6 font-bold text-emerald-800 text-base">
                 $${totalBalance}
               </td>
-              <td class="py-3.5 px-6 text-right space-x-2">
-                <button onclick="window.app.openGiveCashModal('${s.id}')" class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 text-xs font-bold px-3 py-1.5 rounded-xl shadow-md transition-all">
+              <td class="py-3 px-6 text-right space-x-2 whitespace-nowrap">
+                <button onclick="app.openGiveCashModal('${s.id}')" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-sm transition-colors">
                   <i class="fa-solid fa-hand-holding-dollar mr-1"></i> Entregar Dinero
                 </button>
-                <button onclick="window.app.deleteStudent('${s.id}')" class="text-slate-500 hover:text-rose-400 p-1.5 transition-colors">
+                <button onclick="app.deleteStudent('${s.id}')" aria-label="Eliminar alumno" class="text-slate-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg p-1.5 transition-colors">
                   <i class="fa-solid fa-trash-can"></i>
                 </button>
               </td>
@@ -883,12 +848,9 @@
 
         document.getElementById('give-cash-student-title').innerText = `Para: ${this.selectedStudentForCash.name}`;
         this.selectedBills = { 5: 0, 10: 0, 20: 0, 50: 0, 100: 0 };
-        
-        [5, 10, 20, 50, 100].forEach(denom => {
-          const el = document.getElementById(`bill-qty-${denom}`);
-          if (el) el.innerText = '0';
+        [5, 10, 20, 50, 100].forEach(d => {
+          document.getElementById(`bill-qty-${d}`).innerText = 0;
         });
-
         this.updateBillModalSummary();
         document.getElementById('modal-give-cash').classList.remove('hidden');
       }
@@ -922,43 +884,26 @@
           return;
         }
 
-        const currentBills = this.selectedStudentForCash.bills || { 5: 0, 10: 0, 20: 0, 50: 0, 100: 0 };
-        const updatedBills = { ...currentBills };
-        
-        for (const [denom, qty] of Object.entries(this.selectedBills)) {
-          updatedBills[denom] = (updatedBills[denom] || 0) + qty;
-        }
-
-        const newBalance = (this.selectedStudentForCash.balance || 0) + totalAdd;
-
-        if (this.isDemoMode) {
-          this.selectedStudentForCash.balance = newBalance;
-          this.selectedStudentForCash.bills = updatedBills;
-          this.transactions.unshift({
-            id: 'tx_' + Date.now(),
-            studentId: this.selectedStudentForCash.id,
-            studentName: this.selectedStudentForCash.name,
-            type: 'grant',
-            amount: totalAdd,
-            details: `Recibió billetes por un total de $${totalAdd}`
-          });
-          this.renderBankerStudents();
-          this.updateBankerStats();
-          this.renderTransactions();
-          this.closeModal('modal-give-cash');
-          this.showToast(`$${totalAdd} entregados a ${this.selectedStudentForCash.name}`, 'success');
-          return;
-        }
-
         try {
-          const studentRef = doc(this.db, 'students', this.selectedStudentForCash.id);
+          const studentRef = doc(this.db, 'artifacts', this.appId, 'public', 'data', 'students', this.selectedStudentForCash.id);
+          
+          // Merge current bills count
+          const currentBills = this.selectedStudentForCash.bills || { 5: 0, 10: 0, 20: 0, 50: 0, 100: 0 };
+          const updatedBills = { ...currentBills };
+          
+          for (const [denom, qty] of Object.entries(this.selectedBills)) {
+            updatedBills[denom] = (updatedBills[denom] || 0) + qty;
+          }
+
+          const newBalance = (this.selectedStudentForCash.balance || 0) + totalAdd;
 
           await updateDoc(studentRef, {
             balance: newBalance,
             bills: updatedBills
           });
 
-          await addDoc(collection(this.db, 'transactions'), {
+          // Create transaction audit
+          await addDoc(collection(this.db, 'artifacts', this.appId, 'public', 'data', 'transactions'), {
             studentId: this.selectedStudentForCash.id,
             studentName: this.selectedStudentForCash.name,
             type: 'grant',
@@ -976,16 +921,8 @@
       }
 
       async deleteStudent(studentId) {
-        if (this.isDemoMode) {
-          this.students = this.students.filter(s => s.id !== studentId);
-          this.renderBankerStudents();
-          this.updateBankerStats();
-          this.showToast('Alumno eliminado en Modo Demo', 'info');
-          return;
-        }
-
         try {
-          await deleteDoc(doc(this.db, 'students', studentId));
+          await deleteDoc(doc(this.db, 'artifacts', this.appId, 'public', 'data', 'students', studentId));
           this.showToast('Alumno eliminado del registro', 'info');
         } catch (err) {
           console.error(err);
@@ -999,6 +936,7 @@
         document.getElementById('student-welcome-nie').innerText = this.activeStudent.nie;
         document.getElementById('student-total-balance').innerText = `$${this.activeStudent.balance || 0}`;
 
+        // Render Bills Breakdown Cards
         const billsGrid = document.getElementById('student-bills-grid');
         const bills = this.activeStudent.bills || { 5: 0, 10: 0, 20: 0, 50: 0, 100: 0 };
 
@@ -1008,37 +946,38 @@
           return `
             <div class="bill-card bill-${d} rounded-2xl p-4 flex flex-col justify-between h-32 relative overflow-hidden">
               <div class="flex justify-between items-start">
-                <span class="font-display font-black text-2xl">$${d}</span>
+                <span class="font-display font-extrabold text-2xl">$${d}</span>
                 <i class="fa-solid fa-money-bill-wave text-xl opacity-40"></i>
               </div>
               <div>
-                <p class="text-[10px] uppercase font-bold opacity-80 tracking-wider">Cantidad</p>
-                <p class="font-display text-2xl font-black">${qty} <span class="text-xs font-normal">billetes</span></p>
+                <p class="text-xs uppercase font-semibold opacity-90">Cantidad</p>
+                <p class="font-display text-2xl font-black">${qty} <span class="text-xs font-medium">billetes</span></p>
               </div>
             </div>
           `;
         }).join('');
 
+        // Filter personal transactions
         const myTxs = this.transactions.filter(t => t.studentId === this.activeStudent.id);
         const historyContainer = document.getElementById('student-history-list');
 
         if (myTxs.length === 0) {
-          historyContainer.innerHTML = `<p class="text-xs text-slate-500 py-4 text-center">Aún no tienes movimientos en tu billetera.</p>`;
+          historyContainer.innerHTML = `<p class="text-xs text-slate-600 py-4 text-center">Aún no tienes movimientos en tu billetera.</p>`;
         } else {
           historyContainer.innerHTML = myTxs.map(t => {
             const isGrant = t.type === 'grant';
             return `
-              <div class="flex items-center justify-between p-3 rounded-2xl ${isGrant ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-200' : 'bg-slate-900 border border-slate-800 text-slate-300'} text-xs">
+              <div class="flex items-center justify-between p-3 rounded-xl ${isGrant ? 'bg-emerald-50 text-emerald-950 border border-emerald-200' : 'bg-amber-50 text-slate-800 border border-amber-200'} text-xs">
                 <div class="flex items-center space-x-3">
-                  <div class="w-8 h-8 rounded-xl ${isGrant ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'} flex items-center justify-center font-bold">
+                  <div class="w-8 h-8 rounded-full ${isGrant ? 'bg-emerald-200 text-emerald-900' : 'bg-amber-200 text-amber-900'} flex items-center justify-center font-bold">
                     <i class="fa-solid ${isGrant ? 'fa-arrow-down' : 'fa-basket-shopping'}"></i>
                   </div>
                   <div>
-                    <p class="font-bold text-white">${t.details}</p>
-                    <p class="text-[10px] text-slate-400">Transacción completada</p>
+                    <p class="font-bold">${t.details}</p>
+                    <p class="text-[10px] text-slate-600">Transacción completada</p>
                   </div>
                 </div>
-                <span class="font-display text-sm font-bold ${isGrant ? 'text-emerald-400' : 'text-slate-300'}">
+                <span class="font-display text-sm font-bold ${isGrant ? 'text-emerald-800' : 'text-amber-900'}">
                   ${isGrant ? '+' : '-'}$${t.amount}
                 </span>
               </div>
@@ -1056,13 +995,13 @@
         if (tab === 'wallet') {
           walletTab.classList.remove('hidden');
           shopTab.classList.add('hidden');
-          btnWallet.className = "py-3 px-6 text-sm font-bold border-b-2 border-emerald-400 text-emerald-400 flex items-center space-x-2 transition-colors";
-          btnShop.className = "py-3 px-6 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 transition-colors";
+          btnWallet.className = this.tabOn.emerald;
+          btnShop.className = this.tabOff;
         } else {
           walletTab.classList.add('hidden');
           shopTab.classList.remove('hidden');
-          btnShop.className = "py-3 px-6 text-sm font-bold border-b-2 border-emerald-400 text-emerald-400 flex items-center space-x-2 transition-colors";
-          btnWallet.className = "py-3 px-6 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 transition-colors";
+          btnShop.className = this.tabOn.emerald;
+          btnWallet.className = this.tabOff;
         }
       }
 
@@ -1079,19 +1018,19 @@
         shopView.classList.add('hidden');
         auditView.classList.add('hidden');
 
-        btnStudents.className = "py-3 px-6 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 transition-colors";
-        btnShop.className = "py-3 px-6 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 transition-colors";
-        btnAudit.className = "py-3 px-6 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center space-x-2 transition-colors";
+        btnStudents.className = this.tabOff;
+        btnShop.className = this.tabOff;
+        btnAudit.className = this.tabOff;
 
         if (tab === 'students') {
           studentsView.classList.remove('hidden');
-          btnStudents.className = "py-3 px-6 text-sm font-bold border-b-2 border-sky-400 text-sky-400 flex items-center space-x-2 transition-colors";
+          btnStudents.className = this.tabOn.sky;
         } else if (tab === 'shop') {
           shopView.classList.remove('hidden');
-          btnShop.className = "py-3 px-6 text-sm font-bold border-b-2 border-sky-400 text-sky-400 flex items-center space-x-2 transition-colors";
+          btnShop.className = this.tabOn.sky;
         } else if (tab === 'audit') {
           auditView.classList.remove('hidden');
-          btnAudit.className = "py-3 px-6 text-sm font-bold border-b-2 border-sky-400 text-sky-400 flex items-center space-x-2 transition-colors";
+          btnAudit.className = this.tabOn.sky;
         }
       }
 
@@ -1101,24 +1040,8 @@
         const price = parseInt(document.getElementById('new-item-price').value);
         const icon = document.getElementById('new-item-icon').value;
 
-        const newItem = {
-          id: 'item_' + Date.now(),
-          title,
-          price,
-          icon
-        };
-
-        if (this.isDemoMode) {
-          this.shopItems.push(newItem);
-          this.renderShop();
-          document.getElementById('new-item-name').value = '';
-          document.getElementById('new-item-price').value = '';
-          this.showToast('Artículo agregado en Modo Demo', 'success');
-          return;
-        }
-
         try {
-          await addDoc(collection(this.db, 'store_items'), {
+          await addDoc(collection(this.db, 'artifacts', this.appId, 'public', 'data', 'store_items'), {
             title,
             price,
             icon,
@@ -1137,22 +1060,23 @@
         const studentShopGrid = document.getElementById('student-shop-grid');
         const bankerItemsGrid = document.getElementById('banker-items-grid');
 
+        // Banker Store view
         if (bankerItemsGrid) {
           if (this.shopItems.length === 0) {
-            bankerItemsGrid.innerHTML = `<p class="col-span-full text-center text-slate-500 py-6 text-sm">No hay productos en la tienda. Agrega uno con el formulario.</p>`;
+            bankerItemsGrid.innerHTML = `<p class="col-span-full text-center text-slate-600 py-6 text-sm">No hay productos en la tienda. Agrega uno con el formulario.</p>`;
           } else {
             bankerItemsGrid.innerHTML = this.shopItems.map(item => `
-              <div class="glass-card p-4 rounded-2xl border shadow-sm flex items-center justify-between">
+              <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                  <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-lg shadow-inner">
+                  <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center text-lg">
                     <i class="fa-solid ${item.icon}"></i>
                   </div>
                   <div>
-                    <h4 class="font-bold text-white text-sm">${item.title}</h4>
-                    <p class="text-xs text-emerald-400 font-bold">$${item.price}</p>
+                    <h4 class="font-bold text-slate-800 text-sm">${item.title}</h4>
+                    <p class="text-xs text-emerald-800 font-bold">$${item.price}</p>
                   </div>
                 </div>
-                <button onclick="window.app.deleteShopItem('${item.id}')" class="text-slate-500 hover:text-rose-400 p-2 transition-colors">
+                <button onclick="app.deleteShopItem('${item.id}')" aria-label="Eliminar artículo" class="text-slate-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg p-2 transition-colors">
                   <i class="fa-solid fa-trash-can"></i>
                 </button>
               </div>
@@ -1160,27 +1084,26 @@
           }
         }
 
+        // Student Store view
         if (studentShopGrid) {
           if (this.shopItems.length === 0) {
-            studentShopGrid.innerHTML = `<p class="col-span-full text-center text-slate-500 py-10">La tiendita está vacía por el momento.</p>`;
+            studentShopGrid.innerHTML = `<p class="col-span-full text-center text-slate-600 py-10">La tiendita está vacía por el momento.</p>`;
           } else {
             studentShopGrid.innerHTML = this.shopItems.map(item => {
               const canAfford = this.activeStudent && (this.activeStudent.balance || 0) >= item.price;
               return `
-                <div class="glass-card rounded-3xl p-5 border shadow-lg flex flex-col justify-between hover:border-emerald-500/40 transition-all">
+                <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
                   <div>
-                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400/20 to-amber-300/10 border border-amber-400/20 text-amber-400 flex items-center justify-center text-2xl mb-3 shadow-inner">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-900 flex items-center justify-center text-2xl mb-3">
                       <i class="fa-solid ${item.icon}"></i>
                     </div>
-                    <h4 class="font-display text-lg font-bold text-white">${item.title}</h4>
-                    <p class="font-display text-2xl font-extrabold text-emerald-400 mt-1">$${item.price}</p>
+                    <h4 class="font-display text-lg font-bold text-slate-800">${item.title}</h4>
+                    <p class="font-display text-2xl font-extrabold text-emerald-800 mt-1">$${item.price}</p>
                   </div>
-                  <div class="mt-5">
-                    <button onclick="window.app.buyItem('${item.id}')" ${!canAfford ? 'disabled' : ''} 
-                      class="w-full py-2.5 px-4 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center space-x-2
-                      ${canAfford 
-                        ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-lg shadow-emerald-500/20' 
-                        : 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700'}">
+                  <div class="mt-4">
+                    <button onclick="app.buyItem('${item.id}')" ${!canAfford ? 'disabled' : ''} 
+                      class="w-full py-2.5 px-4 rounded-xl font-semibold text-sm transition-all flex items-center justify-center space-x-2
+                      ${canAfford ? 'bg-emerald-700 hover:bg-emerald-800 text-white shadow-sm' : 'bg-slate-200 text-slate-600 cursor-not-allowed'}">
                       <i class="fa-solid fa-cart-shopping"></i>
                       <span>${canAfford ? 'Comprar Artículo' : 'Saldo Insuficiente'}</span>
                     </button>
@@ -1193,15 +1116,8 @@
       }
 
       async deleteShopItem(itemId) {
-        if (this.isDemoMode) {
-          this.shopItems = this.shopItems.filter(i => i.id !== itemId);
-          this.renderShop();
-          this.showToast('Artículo eliminado en Modo Demo', 'info');
-          return;
-        }
-
         try {
-          await deleteDoc(doc(this.db, 'store_items', itemId));
+          await deleteDoc(doc(this.db, 'artifacts', this.appId, 'public', 'data', 'store_items', itemId));
           this.showToast('Artículo eliminado', 'info');
         } catch (err) {
           console.error(err);
@@ -1219,32 +1135,18 @@
           return;
         }
 
-        const newBalance = currentBalance - item.price;
-
-        if (this.isDemoMode) {
-          this.activeStudent.balance = newBalance;
-          this.transactions.unshift({
-            id: 'tx_' + Date.now(),
-            studentId: this.activeStudent.id,
-            studentName: this.activeStudent.name,
-            type: 'purchase',
-            amount: item.price,
-            details: `Compró ${item.title}`
-          });
-          this.renderStudentDashboard();
-          this.renderTransactions();
-          this.showToast(`¡Compraste ${item.title} con éxito!`, 'success');
-          return;
-        }
-
         try {
-          const studentRef = doc(this.db, 'students', this.activeStudent.id);
+          const studentRef = doc(this.db, 'artifacts', this.appId, 'public', 'data', 'students', this.activeStudent.id);
+          
+          // Deduct from total balance
+          const newBalance = currentBalance - item.price;
 
           await updateDoc(studentRef, {
             balance: newBalance
           });
 
-          await addDoc(collection(this.db, 'transactions'), {
+          // Log transaction
+          await addDoc(collection(this.db, 'artifacts', this.appId, 'public', 'data', 'transactions'), {
             studentId: this.activeStudent.id,
             studentName: this.activeStudent.name,
             type: 'purchase',
@@ -1276,24 +1178,24 @@
         if (!bankerAudit) return;
 
         if (this.transactions.length === 0) {
-          bankerAudit.innerHTML = `<p class="text-xs text-slate-500 py-6 text-center">No hay registros de transacciones todavía.</p>`;
+          bankerAudit.innerHTML = `<p class="text-xs text-slate-600 py-6 text-center">No hay registros de transacciones todavía.</p>`;
           return;
         }
 
         bankerAudit.innerHTML = this.transactions.map(t => {
           const isGrant = t.type === 'grant';
           return `
-            <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-900 border border-slate-800 text-xs">
+            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
               <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-xl ${isGrant ? 'bg-sky-500/20 text-sky-400' : 'bg-amber-500/20 text-amber-400'} flex items-center justify-center font-bold">
+                <div class="w-8 h-8 rounded-full ${isGrant ? 'bg-sky-100 text-sky-900' : 'bg-amber-100 text-amber-900'} flex items-center justify-center font-bold">
                   <i class="fa-solid ${isGrant ? 'fa-hand-holding-dollar' : 'fa-receipt'}"></i>
                 </div>
                 <div>
-                  <p class="font-bold text-white">${t.studentName}: ${t.details}</p>
-                  <p class="text-[10px] text-slate-500">Registro procesado</p>
+                  <p class="font-bold text-slate-800">${t.studentName}: ${t.details}</p>
+                  <p class="text-[10px] text-slate-600">Registrado en Firestore</p>
                 </div>
               </div>
-              <span class="font-mono font-bold ${isGrant ? 'text-emerald-400' : 'text-slate-300'}">
+              <span class="font-mono font-bold ${isGrant ? 'text-emerald-800' : 'text-slate-800'}">
                 $${t.amount}
               </span>
             </div>
@@ -1301,24 +1203,26 @@
         }).join('');
       }
 
+      // Toast feedback system
       showToast(message, type = 'info') {
         const container = document.getElementById('toast-container');
-        if (!container) return;
-
         const toast = document.createElement('div');
-        let bg = 'bg-slate-800 border border-slate-700 text-white';
-        if (type === 'success') bg = 'bg-emerald-600 text-white shadow-emerald-600/30';
-        if (type === 'error') bg = 'bg-rose-600 text-white shadow-rose-600/30';
+        
+        let bg = 'bg-slate-700 text-white';
+        if (type === 'success') bg = 'bg-emerald-700 text-white';
+        if (type === 'error') bg = 'bg-rose-700 text-white';
 
-        toast.className = `${bg} px-4 py-3 rounded-2xl shadow-xl text-xs sm:text-sm font-bold flex items-center space-x-2 transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto`;
+        toast.className = `${bg} px-4 py-3 rounded-xl shadow-lg text-sm font-medium flex items-center space-x-2 transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto`;
         toast.innerHTML = `<span>${message}</span>`;
 
         container.appendChild(toast);
 
+        // Animate in
         setTimeout(() => {
           toast.classList.remove('translate-y-2', 'opacity-0');
         }, 10);
 
+        // Remove
         setTimeout(() => {
           toast.classList.add('opacity-0');
           setTimeout(() => toast.remove(), 300);
@@ -1326,7 +1230,7 @@
       }
     }
 
-    // Exponer la instancia globalmente
+    // Attach instance directly to global window scope so HTML inline onclick events can execute it
     window.app = new FinanceApp();
   </script>
 </body>
